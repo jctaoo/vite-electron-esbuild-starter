@@ -1,8 +1,10 @@
 import * as chalk from "chalk";
 import * as os from "os";
 
-export const cannotFoundTSConfigMessage = "Could not find a valid 'tsconfig.json'.";
 export const consoleMessagePrefix = "[script]";
+export const consoleViteMessagePrefix = "[script]";
+
+export const cannotFoundTSConfigMessage = "Could not find a valid 'tsconfig.json'.";
 export const startMessage = chalk.cyan(
   `${consoleMessagePrefix} Start compile main process...`
 );

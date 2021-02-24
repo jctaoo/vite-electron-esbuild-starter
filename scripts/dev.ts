@@ -6,28 +6,36 @@ import * as path from "path";
 import * as fs from "fs";
 import {
   CompileError,
+  consoleViteMessagePrefix,
   formatDiagnosticsMessage,
   finishMessage,
   cannotFoundTSConfigMessage,
 } from "./common";
 import { endElectron, startElectron } from "./run-electron";
-import { createServer } from "vite";
+import * as childProcess from "child_process";
+import { Transform, TransformOptions } from "stream";
+import { clearTimeout } from "timers";
 
+const viteArgName = "--vite";
 const mainPath = path.join(process.cwd(), "./src/main");
 const outDir = path.join(process.cwd(), "./dist");
 const entryPath = path.join(mainPath, "index.ts");
-const viteArgName = "--vite";
 
 async function startViteServer() {
-  const server = await createServer({
-    // any valid user config options, plus `mode` and `configFile`
-    configFile: false,
-    root: __dirname,
-    server: {
-      port: 1337,
-    },
+  const viteScriptPath = path.join(__dirname, "./run-vite.ts");
+  const cp = childProcess.fork(viteScriptPath, [], { silent: true });
+  // TODO handle cp stdout and stderr
+  return new Promise<void>((resolve, reject) => {
+    const clear = setTimeout(() => {
+      reject(new Error('Timeout when starting the vite server.'));
+    }, 30000);
+    cp.on('message', (msg) => {
+      if (msg === 'done') {
+        clearTimeout(clear);
+        resolve();
+      }
+    })
   });
-  await server.listen();
 }
 
 async function compile() {
@@ -83,8 +91,11 @@ function handleSuccess() {
   startElectron(outDir);
 }
 
-compile().then(() => {
+async function start() {
   if (process.argv.includes(viteArgName)) {
-    startViteServer().then();
+    await startViteServer();
   }
-});
+  await compile();
+}
+
+start();
