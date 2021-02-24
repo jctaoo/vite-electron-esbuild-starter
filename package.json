@@ -1,0 +1,37 @@
+{
+  "name": "vite-project",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "",
+    "preview": "yarn run build && cross-env NODE_ENV=production electron ./dist",
+    "pack": "yarn run pack:win && yarn run pack:linux",
+    "pack:all": "yarn run pack:win && yarn run pack:mac && yarn run pack:linux",
+    "dev:renderer": "vite",
+    "dev:main": "ts-node --project ./scripts/tsconfig.json ./scripts/dev.ts",
+    "preview:renderer": "vite preview",
+    "preview:main": "ts-node --project ./scripts/tsconfig.json ./scripts/preview.ts",
+    "build": "yarn run clean && vite build && tsc --project ./src/main/tsconfig.json",
+    "clean": "ts-node --project ./scripts/tsconfig.json ./scripts/clear.ts",
+    "pack:win": "",
+    "pack:mac": "",
+    "pack:linux": ""
+  },
+  "dependencies": {
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.31",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@vitejs/plugin-react-refresh": "^1.1.0",
+    "chalk": "^4.1.0",
+    "cross-env": "^7.0.3",
+    "electron": "^11.3.0",
+    "esbuild": "^0.8.51",
+    "ts-node": "^9.1.1",
+    "tslib": "^2.1.0",
+    "typescript": "^4.1.2",
+    "vite": "^2.0.1"
+  }
+}
