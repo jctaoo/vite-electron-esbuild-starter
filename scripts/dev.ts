@@ -11,10 +11,24 @@ import {
   cannotFoundTSConfigMessage,
 } from "./common";
 import { endElectron, startElectron } from "./run-electron";
+import { createServer } from "vite";
 
 const mainPath = path.join(process.cwd(), "./src/main");
 const outDir = path.join(process.cwd(), "./dist");
 const entryPath = path.join(mainPath, "index.ts");
+const viteArgName = "--vite";
+
+async function startViteServer() {
+  const server = await createServer({
+    // any valid user config options, plus `mode` and `configFile`
+    configFile: false,
+    root: __dirname,
+    server: {
+      port: 1337,
+    },
+  });
+  await server.listen();
+}
 
 async function compile() {
   const tsconfigPath = path.join(mainPath, "tsconfig.json");
@@ -60,15 +74,17 @@ function handleBuildFailure(error: esbuild.BuildFailure) {
     }
   );
   const reportingMessage = formatDiagnosticsMessage(errors);
-  // console.clear();
   console.error(reportingMessage);
 }
 
 function handleSuccess() {
-  // console.clear();
   console.log(finishMessage);
   endElectron();
   startElectron(outDir);
 }
 
-compile();
+compile().then(() => {
+  if (process.argv.includes(viteArgName)) {
+    startViteServer().then();
+  }
+});

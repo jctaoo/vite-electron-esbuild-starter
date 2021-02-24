@@ -80,10 +80,8 @@ function reportWatchStatusChanged(
   if (!!errorCount && errorCount > 0) {
     const reportingMessage = formatDiagnosticsMessage(diagnosticErrors);
     diagnosticErrors = [];
-    console.clear();
     console.error(reportingMessage);
   } else if (diagnostic.code === 6194) {
-    console.clear();
     console.log(finishMessage);
     endElectron();
     startElectron(outDir);
