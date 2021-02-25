@@ -12,7 +12,7 @@
     "preview:renderer": "vite preview",
     "preview:main": "ts-node --project ./scripts/tsconfig.json ./scripts/preview.ts",
     "build": "yarn run clean && vite build && tsc --project ./src/main/tsconfig.json",
-    "clean": "ts-node --project ./scripts/tsconfig.json ./scripts/clear.ts",
+    "clean": "ts-node --project ./scripts/tsconfig.json ./scripts/clean.ts",
     "pack:win": "",
     "pack:mac": "",
     "pack:linux": ""
