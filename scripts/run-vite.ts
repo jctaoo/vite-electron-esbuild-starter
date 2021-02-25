@@ -1,6 +1,5 @@
 import { createServer } from "vite";
 import config from "../vite.config";
-import * as path from "path";
 
 async function startViteServer() {
   const server = await createServer({

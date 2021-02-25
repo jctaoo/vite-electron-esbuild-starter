@@ -63,6 +63,8 @@ async function compile() {
       logLevel: "silent",
       errorLimit: 0,
       incremental: true,
+      platform: "node",
+      sourcemap: true,
       watch: {
         onRebuild: (error) => {
           if (!!error) {

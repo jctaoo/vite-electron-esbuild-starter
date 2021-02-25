@@ -1,6 +1,7 @@
 import * as fs from "fs";
 import { join, resolve } from "path";
 
+// TODO refactor
 /**
  * 删除目录和内部文件
  **/
