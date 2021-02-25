@@ -1,18 +1,14 @@
 import { createServer } from "vite";
+import config from "../vite.config";
 import * as path from "path";
-
-const viteConfigPath = path.join(process.cwd(), "./vite.config.ts");
 
 async function startViteServer() {
   const server = await createServer({
-    configFile: viteConfigPath,
-    root: process.cwd(),
-    server: {
-      port: 1337,
-    },
+    ...config,
+    configFile: false,
   });
   await server.listen();
-  process.send('done');
+  process.send("done");
 }
 
 startViteServer();

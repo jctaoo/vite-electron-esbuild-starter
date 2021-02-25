@@ -1,4 +1,5 @@
 import { app, BrowserWindow } from 'electron';
+import { add } from '@common/utils';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
@@ -11,7 +12,7 @@ function createWindow () {
     }
   })
   if (isDevelopment) {
-    win.loadURL("http://localhost:1337")
+    win.loadURL("http://localhost:3000")
   } else {
     win.loadFile("./index.html");
   }
