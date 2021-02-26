@@ -5,14 +5,14 @@ import './App.css';
 
 function App() {
   const [count, setCount] = useState(0)
-  const result = add(1, 1);
+  const result = add(1, 2);
 
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>Hello Vite + React!!!!</p>
-        <p>1 + 1 = {result}</p>
+        <p>1 + 2 = {result}</p>
         <p>
           <button onClick={() => setCount((count) => count + 1)}>
             count is: {count}

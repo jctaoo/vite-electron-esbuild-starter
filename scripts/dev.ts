@@ -9,44 +9,13 @@ import {
   formatDiagnosticsMessage,
   finishMessage,
   cannotFoundTSConfigMessage,
+  mainPath,
+  outDir,
+  entryPath,
+  viteArgName,
 } from "./common";
 import { endElectron, startElectron } from "./run-electron";
-import * as childProcess from "child_process";
-import { clearTimeout } from "timers";
-import * as chalk from "chalk";
-
-const viteArgName = "--vite";
-const mainPath = path.join(process.cwd(), "./src/main");
-const outDir = path.join(process.cwd(), "./dist");
-const entryPath = path.join(mainPath, "index.ts");
-
-async function startViteServer() {
-  const viteScriptPath = path.join(__dirname, "./run-vite.ts");
-  const cp = childProcess.fork(viteScriptPath, [], { silent: true });
-  return new Promise<void>((resolve, reject) => {
-    const clear = setTimeout(() => {
-      reject(new Error("Timeout when starting the vite server."));
-    }, 30000);
-    cp.on("message", (msg) => {
-      if (msg === "done") {
-        clearTimeout(clear);
-        resolve();
-        cp.stdout.on("data", (msg) => {
-          const str: string = msg.toString();
-          const res = str.replace(/\n/g, "");
-          if (res.includes('dev server running at')) {
-            console.log(chalk.yellow(`[vite] vite server run.`))
-            return;
-          }
-          if (res.includes('Local:') || res.includes('Network:')) {
-            return;
-          }
-          console.log(chalk.yellow(`[vite] ${res}`));
-        });
-      }
-    });
-  });
-}
+import { startViteServer } from "./run-vite";
 
 async function compile() {
   const tsconfigPath = path.join(mainPath, "tsconfig.json");
