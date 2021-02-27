@@ -44,13 +44,17 @@ yarn run pack:all
 ![screenshot](./screenshot.png)
 
 ## 文件结构
+采用 [two-package-structure](https://www.electron.build/tutorials/two-package-structure)
 ```
-+ dist 构建产物
-+ scripts 支持开发/构建等的脚本
-+ src
-  + common 通用代码
-  + main 主进程模块
-  + renderer 渲染进程模块
-- package.json 
-- vite.config.ts vite 配置
++ app                     electron-builder app 目录及其构建产物目录 (目标js代码，图片资源等等，而不是安装包或可运行文件)
+  - package.json          生产依赖，全部存为 dependencies (而不是 devDependencies)
++ dist                    electron-builder 打包目录
++ scripts                 支持开发/构建等的脚本
++ src      
+  + common                通用代码
+  + main                  主进程模块
+  + renderer              渲染进程模块
+- package.json            开发时依赖，全部存为 devDependencies (而不是 dependencies)
+- vite.config.ts vite     配置
+- electron-builder.yml    electron-builder 配置
 ```

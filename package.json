@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development ts-node --project ./scripts/tsconfig.json ./scripts/dev.ts --esbuild",
-    "dev:tsc": "cross-env NODE_ENV=development ts-node --project ./scripts/tsconfig.json ./scripts/dev.ts --tsc",
+    "dev": "cross-env NODE_ENV=development ts-node --project ./scripts/tsconfig.json ./scripts/dev.ts --esbuild --vite",
+    "dev:tsc": "cross-env NODE_ENV=development ts-node --project ./scripts/tsconfig.json ./scripts/dev.ts --tsc --vite",
     "preview": "yarn run build && cross-env NODE_ENV=production electron ./dist/main",
     "pack": "yarn run pack:win && yarn run pack:linux",
     "pack:all": "yarn run pack:win && yarn run pack:mac && yarn run pack:linux",
