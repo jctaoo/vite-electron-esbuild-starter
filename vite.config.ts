@@ -2,8 +2,7 @@ import { defineConfig } from "vite";
 import reactRefresh from "@vitejs/plugin-react-refresh";
 import { join, resolve } from "path";
 
-const isDevelopment = process.env.NODE_ENV === "development";
-
+// TODO index.html 不在 root 时有 bug
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [reactRefresh()],

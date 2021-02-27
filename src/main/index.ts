@@ -14,7 +14,7 @@ function createWindow() {
   if (isDevelopment) {
     win.loadURL("http://localhost:3000")
   } else {
-    win.loadFile("./index.html");
+    win.loadFile("../index.html");
   }
 }
 
