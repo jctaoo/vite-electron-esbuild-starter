@@ -1,7 +1,8 @@
 import { defineConfig } from "vite";
 import reactRefresh from "@vitejs/plugin-react-refresh";
 import { join, resolve } from "path";
-import vitePluginImp from 'vite-plugin-imp'
+import vitePluginImp from 'vite-plugin-imp';
+import { outDirRenderer, rendererPath } from "./scripts/common";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -17,10 +18,10 @@ export default defineConfig({
     }),
   ],
   base: "./",
-  root: resolve("./src/renderer"),
+  root: rendererPath,
   build: {
-    outDir: resolve("./dist"),
-    emptyOutDir: true
+    outDir: outDirRenderer,
+    emptyOutDir: true,
   },
   resolve: {
     alias: [

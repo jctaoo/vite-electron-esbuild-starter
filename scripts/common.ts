@@ -11,8 +11,11 @@ export type WatchMain = (
 
 export const srcPath = path.join(process.cwd(), "./src");
 export const mainPath = path.join(process.cwd(), "./src/main");
-export const outDir = path.join(process.cwd(), "./dist");
-export const outDirMain = path.join(process.cwd(), "./dist/main");
+export const rendererPath = path.join(process.cwd(), "./src/renderer");
+export const outDir = path.join(process.cwd(), "./app");
+export const outDirMain = path.join(process.cwd(), "./app/main");
+export const outDirRenderer = path.join(process.cwd(), "./app/renderer");
+export const distDir = path.join(process.cwd(), "./dist");
 export const entryPath = path.join(mainPath, "index.ts");
 
 export const consoleMessagePrefix = "[script]";

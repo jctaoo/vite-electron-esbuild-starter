@@ -11,6 +11,7 @@ import {
 } from "./common";
 import { startElectron } from "./run-electron";
 
+const VITE_OPTION = "--vite";
 const DEV_MODE = ["--tsc", "--esbuild"];
 
 // Detecting dev mode
@@ -42,7 +43,9 @@ function notFoundTSConfig() {
 
 async function main() {
   // Start vite server
-  await startViteServer();
+  if (process.argv.includes(VITE_OPTION)) {
+    await startViteServer();
+  }
   // Start dev for main process
   switch (usingMode) {
     case "--esbuild":

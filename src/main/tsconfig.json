@@ -4,7 +4,7 @@
     "target": "ES2018",
     "module": "CommonJS",
     "sourceMap": false,
-    "outDir": "../../dist",
+    "outDir": "../../app",
     "baseUrl": "../../src",
     "paths": {
       "@main/*": ["main/*"],
