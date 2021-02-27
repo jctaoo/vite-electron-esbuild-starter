@@ -7,10 +7,12 @@ import {
   startMessage,
   finishMessage,
   cannotFoundTSConfigMessage,
+  outDir,
+  mainPath,
+  outDirMain,
 } from "./common";
-import { endElectron, startElectron } from "./run-electron";
+import { startElectron } from "./run-electron";
 
-const outDir = path.join(process.cwd(), "./dist");
 let diagnosticErrors: Array<CompileError> = [];
 
 const formatHost: ts.FormatDiagnosticsHost = {
@@ -18,26 +20,6 @@ const formatHost: ts.FormatDiagnosticsHost = {
   getCurrentDirectory: ts.sys.getCurrentDirectory,
   getNewLine: () => ts.sys.newLine,
 };
-
-function watchMain() {
-  const configPath = path.join(__dirname, "../src/main/tsconfig.json");
-  if (!configPath) {
-    throw new Error(cannotFoundTSConfigMessage);
-  }
-
-  const createProgram = ts.createSemanticDiagnosticsBuilderProgram;
-
-  const host = ts.createWatchCompilerHost(
-    configPath,
-    {},
-    ts.sys,
-    createProgram,
-    reportDiagnostic,
-    reportWatchStatusChanged
-  );
-
-  ts.createWatchProgram(host);
-}
 
 function reportDiagnostic(diagnostic: ts.Diagnostic) {
   if (!diagnostic.file || !diagnostic.start || !diagnostic.length) {
@@ -83,11 +65,28 @@ function reportWatchStatusChanged(
     console.error(reportingMessage);
   } else if (diagnostic.code === 6194) {
     console.log(finishMessage);
-    endElectron();
-    startElectron(outDir);
+    startElectron(outDirMain);
   } else if (diagnostic.code === 6032 || diagnostic.code === 6031) {
     console.log(startMessage);
   }
 }
 
-watchMain();
+export function watchMain() {
+  const configPath = path.join(__dirname, "../src/main/tsconfig.json");
+  if (!configPath) {
+    throw new Error(cannotFoundTSConfigMessage);
+  }
+
+  const createProgram = ts.createSemanticDiagnosticsBuilderProgram;
+
+  const host = ts.createWatchCompilerHost(
+    configPath,
+    {},
+    ts.sys,
+    createProgram,
+    reportDiagnostic,
+    reportWatchStatusChanged
+  );
+
+  ts.createWatchProgram(host);
+}

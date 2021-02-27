@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development ts-node --project ./scripts/tsconfig.json ./scripts/dev.ts --vite",
+    "dev": "cross-env NODE_ENV=development ts-node --project ./scripts/tsconfig.json ./scripts/dev.ts --tsc",
     "preview": "yarn run build && cross-env NODE_ENV=production electron ./dist",
     "pack": "yarn run pack:win && yarn run pack:linux",
     "pack:all": "yarn run pack:win && yarn run pack:mac && yarn run pack:linux",

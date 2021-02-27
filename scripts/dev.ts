@@ -1,82 +1,30 @@
-/**
- * Run main process using ESBuild
- */
-import * as esbuild from "esbuild";
-import * as path from "path";
-import * as fs from "fs";
-import {
-  CompileError,
-  formatDiagnosticsMessage,
-  finishMessage,
-  cannotFoundTSConfigMessage,
-  mainPath,
-  outDir,
-  entryPath,
-  viteArgName,
-} from "./common";
-import { endElectron, startElectron } from "./run-electron";
 import { startViteServer } from "./run-vite";
+import * as tscDev from "./dev-tsc";
 
-async function compile() {
-  const tsconfigPath = path.join(mainPath, "tsconfig.json");
-  if (!fs.existsSync(tsconfigPath)) {
-    throw new Error(cannotFoundTSConfigMessage);
-  }
+const DEV_MODE = ["--esbuild", "--tsc"];
 
-  try {
-    await esbuild.build({
-      outdir: outDir,
-      entryPoints: [entryPath],
-      tsconfig: tsconfigPath,
-      format: "cjs",
-      logLevel: "silent",
-      errorLimit: 0,
-      incremental: true,
-      platform: "node",
-      sourcemap: true,
-      watch: {
-        onRebuild: (error) => {
-          if (!!error) {
-            handleBuildFailure(error);
-          } else {
-            handleSuccess();
-          }
-        },
-      },
-    });
-    handleSuccess();
-  } catch (e) {
-    if (!!e.errors && !!e.errors.length && e.errors.length > 0) {
-      const error = e as esbuild.BuildFailure;
-      handleBuildFailure(error);
-    }
+// Detecting dev mode
+let usingMode: string = "--tsc";
+for (const mode of DEV_MODE) {
+  if (process.argv.includes(mode)) {
+    usingMode = mode;
   }
 }
 
-function handleBuildFailure(error: esbuild.BuildFailure) {
-  const errors = error.errors.map(
-    (e): CompileError => {
-      return {
-        location: e.location,
-        message: e.text,
-      };
-    }
-  );
-  const reportingMessage = formatDiagnosticsMessage(errors);
-  console.error(reportingMessage);
-}
-
-function handleSuccess() {
-  console.log(finishMessage);
-  endElectron();
-  startElectron(outDir);
-}
-
-async function start() {
-  if (process.argv.includes(viteArgName)) {
-    await startViteServer();
+async function main() {
+  // Start vite server
+  await startViteServer();
+  // Start dev for main process
+  switch (usingMode) {
+    case "--esbuild":
+      break;
+    case "--tsc":
+      tscDev.watchMain();
+      break;
+    default:
+      // TODO error reporting
+      break;
   }
-  await compile();
 }
 
-start();
+main();

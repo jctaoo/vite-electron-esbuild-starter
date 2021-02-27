@@ -3,7 +3,7 @@ import * as stream from "stream";
 
 const electron = require("electron");
 
-let electronProcess: childProcess.ChildProcess | undefined;
+let electronProcess: childProcess.ChildProcess | null = null;
 
 const removeJunkTransformOptions: stream.TransformOptions = {
   decodeStrings: false,
@@ -25,24 +25,44 @@ const removeJunkTransformOptions: stream.TransformOptions = {
     if (/ALSA lib [a-z]+\.c:\d+:\([a-z_]+\)/.test(source)) {
       return false;
     }
-    done(null, source);
+    done(null, chunk);
   },
 };
-const removeElectronLoggerJunkOut = new stream.Transform(
-  removeJunkTransformOptions
-);
-const removeElectronLoggerJunkErr = new stream.Transform(
-  removeJunkTransformOptions
-);
 
-export function startElectron(path: string) {
-  electronProcess = childProcess.spawn(electron, [path]);
-  electronProcess?.stdout.pipe(removeElectronLoggerJunkOut).pipe(process.stdout);
-  electronProcess?.stderr.pipe(removeElectronLoggerJunkErr).pipe(process.stderr);
-}
-
-export function endElectron() {
+function endElectron() {
   if (!!electronProcess) {
     electronProcess.kill("SIGINT");
+    electronProcess = null;
   }
+}
+
+function delay(duration: number): Promise<void> {
+  return new Promise((r) => {
+    setTimeout(() => {
+      r();
+    }, duration);
+  });
+}
+
+export async function startElectron(path: string) {
+  if (!!electronProcess) {
+    process.kill(electronProcess.pid)
+    electronProcess = null;
+    await delay(500);
+  }
+
+  electronProcess = childProcess.spawn(electron, [path]);  
+  electronProcess.on('exit', (code) => {
+    console.log(`child process exited with code ${code}`);
+    process.exit()
+  });
+
+  const removeElectronLoggerJunkOut = new stream.Transform(
+    removeJunkTransformOptions
+  );
+  const removeElectronLoggerJunkErr = new stream.Transform(
+    removeJunkTransformOptions
+  );
+  electronProcess.stdout.pipe(removeElectronLoggerJunkOut).pipe(process.stdout);
+  electronProcess.stderr.pipe(removeElectronLoggerJunkErr).pipe(process.stderr);
 }
