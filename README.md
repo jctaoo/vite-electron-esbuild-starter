@@ -40,6 +40,10 @@ yarn run pack:linux
 yarn run pack:all
 ```
 
+清理构建目录
+```shell
+yarn run clean
+```
 ## 运行截图
 ![screenshot](./screenshot.png)
 

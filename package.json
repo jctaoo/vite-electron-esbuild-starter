@@ -14,8 +14,9 @@
     "build": "yarn run clean && vite build && tsc --project ./src/main/tsconfig.json",
     "clean": "ts-node --project ./scripts/tsconfig.json ./scripts/clean.ts",
     "pack:win": "",
-    "pack:mac": "cross-env CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder -c ./electron-builder.yml --mac",
+    "pack:mac": "yarn run build && yarn run rebuild && cross-env CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder -c ./electron-builder.yml --mac",
     "pack:linux": "",
+    "rebuild": "electron-rebuild -m ./app",
     "postinstall": "electron-builder install-app-deps"
   },
   "devDependencies": {
@@ -27,6 +28,7 @@
     "cross-env": "^7.0.3",
     "electron": "^11.3.0",
     "electron-builder": "^22.9.1",
+    "electron-rebuild": "^2.3.5",
     "esbuild": "^0.8.51",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
