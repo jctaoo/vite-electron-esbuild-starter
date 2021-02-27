@@ -6,19 +6,33 @@ import * as path from "path";
 import * as fs from "fs";
 import {
   CompileError,
-  formatDiagnosticsMessage,
-  finishMessage,
-  cannotFoundTSConfigMessage,
   mainPath,
   outDir,
   entryPath,
+  WatchMain,
 } from "./common";
-import { startElectron } from "./run-electron";
 
-async function compile() {
+function transformErrors(error: esbuild.BuildFailure): CompileError[] {
+  const errors = error.errors.map(
+    (e): CompileError => {
+      return {
+        location: e.location,
+        message: e.text,
+      };
+    }
+  );
+  return errors;
+}
+
+export const watchMain: WatchMain = async (
+  reportError,
+  buildStart,
+  buildComplete,
+  notFoundTSConfig
+) => {
   const tsconfigPath = path.join(mainPath, "tsconfig.json");
   if (!fs.existsSync(tsconfigPath)) {
-    throw new Error(cannotFoundTSConfigMessage);
+    notFoundTSConfig();
   }
 
   try {
@@ -35,40 +49,18 @@ async function compile() {
       watch: {
         onRebuild: (error) => {
           if (!!error) {
-            handleBuildFailure(error);
+            reportError(transformErrors(error));
           } else {
-            handleSuccess();
+            buildComplete(outDir);
           }
         },
       },
     });
-    handleSuccess();
+    buildComplete(outDir);
   } catch (e) {
     if (!!e.errors && !!e.errors.length && e.errors.length > 0) {
       const error = e as esbuild.BuildFailure;
-      handleBuildFailure(error);
+      reportError(transformErrors(error));
     }
   }
-}
-
-function handleBuildFailure(error: esbuild.BuildFailure) {
-  const errors = error.errors.map(
-    (e): CompileError => {
-      return {
-        location: e.location,
-        message: e.text,
-      };
-    }
-  );
-  const reportingMessage = formatDiagnosticsMessage(errors);
-  console.error(reportingMessage);
-}
-
-function handleSuccess() {
-  console.log(finishMessage);
-  startElectron(outDir);
-}
-
-export async function watchMain() {
-  await compile();
-}
+};

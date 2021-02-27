@@ -2,6 +2,14 @@ import { startViteServer } from "./run-vite";
 import * as tscDev from "./dev-tsc";
 import * as esDev from "./dev-esbuild";
 import chalk = require("chalk");
+import {
+  cannotFoundTSConfigMessage,
+  CompileError,
+  finishMessage,
+  formatDiagnosticsMessage,
+  startMessage,
+} from "./common";
+import { startElectron } from "./run-electron";
 
 const DEV_MODE = ["--tsc", "--esbuild"];
 
@@ -13,16 +21,35 @@ for (const mode of DEV_MODE) {
   }
 }
 
+function reportError(errors: CompileError[]) {
+  const reportingMessage = formatDiagnosticsMessage(errors);
+  console.error(reportingMessage);
+}
+
+function buildStart() {
+  console.log(startMessage);
+}
+
+function buildComplete(dir: string) {
+  console.log(finishMessage);
+  startElectron(dir);
+}
+
+function notFoundTSConfig() {
+  console.error(chalk.red(cannotFoundTSConfigMessage));
+  process.exit();
+}
+
 async function main() {
   // Start vite server
   await startViteServer();
   // Start dev for main process
   switch (usingMode) {
     case "--esbuild":
-      esDev.watchMain();
+      esDev.watchMain(reportError, buildStart, buildComplete, notFoundTSConfig);
       break;
     case "--tsc":
-      tscDev.watchMain();
+      tscDev.watchMain(reportError, buildStart, buildComplete, notFoundTSConfig);
       break;
   }
 }

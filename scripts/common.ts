@@ -2,6 +2,13 @@ import * as chalk from "chalk";
 import * as os from "os";
 import * as path from "path";
 
+export type WatchMain = (
+  reportError: (errs: CompileError[]) => void,
+  buildStart: () => void,
+  buildComplete: (dir: string) => void,
+  notFoundTSConfig: () => void,
+) => void;
+
 export const srcPath = path.join(process.cwd(), "./src");
 export const mainPath = path.join(process.cwd(), "./src/main");
 export const outDir = path.join(process.cwd(), "./dist");

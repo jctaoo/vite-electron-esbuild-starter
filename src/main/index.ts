@@ -15,6 +15,7 @@ function createWindow() {
   }).once('ready-to-show', () => {
     win.show()
   })
+  console.log('yeah');
   if (isDevelopment) {
     win.loadURL("http://localhost:3000");
     win.webContents.toggleDevTools();
