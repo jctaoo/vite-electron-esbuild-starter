@@ -9,10 +9,15 @@ function createWindow() {
     height: 600,
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: true,
     },
-  });
+    show: false,
+  }).once('ready-to-show', () => {
+    win.show()
+  })
   if (isDevelopment) {
-    win.loadURL("http://localhost:3000")
+    win.loadURL("http://localhost:3000");
+    win.webContents.toggleDevTools();
   } else {
     win.loadFile("../index.html");
   }
