@@ -1,3 +1,4 @@
+import chalk = require("chalk");
 import * as childProcess from "child_process";
 import * as stream from "stream";
 
@@ -40,18 +41,17 @@ function delay(duration: number): Promise<void> {
 let exitByScripts = false;
 export async function startElectron(path: string) {
   if (!!electronProcess) {
-    process.kill(electronProcess.pid)
+    process.kill(electronProcess.pid);
     exitByScripts = true;
     electronProcess = null;
     await delay(500);
   }
 
   electronProcess = childProcess.spawn(electron, [path]);
-  electronProcess.on('exit', (code) => {
+  electronProcess.on("exit", (code) => {
     if (!exitByScripts) {
-      // TODO prettier log.
-      console.log(`child process exited with code ${code}`);
-      process.exit()
+      console.log(chalk.gray(`Electron exited with code ${code}`));
+      process.exit();
     }
     exitByScripts = true;
   });

@@ -1,6 +1,7 @@
 import { startViteServer } from "./run-vite";
 import * as tscDev from "./dev-tsc";
 import * as esDev from "./dev-esbuild";
+import chalk = require("chalk");
 
 const DEV_MODE = ["--tsc", "--esbuild"];
 
@@ -22,9 +23,6 @@ async function main() {
       break;
     case "--tsc":
       tscDev.watchMain();
-      break;
-    default:
-      // TODO error reporting
       break;
   }
 }
