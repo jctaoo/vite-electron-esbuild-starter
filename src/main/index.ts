@@ -11,7 +11,6 @@ function createWindow() {
       nodeIntegration: true,
     },
   });
-  console.log('test23ss');
   if (isDevelopment) {
     win.loadURL("http://localhost:3000")
   } else {

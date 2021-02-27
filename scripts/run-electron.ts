@@ -29,13 +29,6 @@ const removeJunkTransformOptions: stream.TransformOptions = {
   },
 };
 
-function endElectron() {
-  if (!!electronProcess) {
-    electronProcess.kill("SIGINT");
-    electronProcess = null;
-  }
-}
-
 function delay(duration: number): Promise<void> {
   return new Promise((r) => {
     setTimeout(() => {
@@ -44,17 +37,23 @@ function delay(duration: number): Promise<void> {
   });
 }
 
+let exitByScripts = false;
 export async function startElectron(path: string) {
   if (!!electronProcess) {
     process.kill(electronProcess.pid)
+    exitByScripts = true;
     electronProcess = null;
     await delay(500);
   }
 
-  electronProcess = childProcess.spawn(electron, [path]);  
+  electronProcess = childProcess.spawn(electron, [path]);
   electronProcess.on('exit', (code) => {
-    console.log(`child process exited with code ${code}`);
-    process.exit()
+    if (!exitByScripts) {
+      // TODO prettier log.
+      console.log(`child process exited with code ${code}`);
+      process.exit()
+    }
+    exitByScripts = true;
   });
 
   const removeElectronLoggerJunkOut = new stream.Transform(

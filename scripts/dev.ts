@@ -1,7 +1,8 @@
 import { startViteServer } from "./run-vite";
 import * as tscDev from "./dev-tsc";
+import * as esDev from "./dev-esbuild";
 
-const DEV_MODE = ["--esbuild", "--tsc"];
+const DEV_MODE = ["--tsc", "--esbuild"];
 
 // Detecting dev mode
 let usingMode: string = "--tsc";
@@ -17,6 +18,7 @@ async function main() {
   // Start dev for main process
   switch (usingMode) {
     case "--esbuild":
+      esDev.watchMain();
       break;
     case "--tsc":
       tscDev.watchMain();

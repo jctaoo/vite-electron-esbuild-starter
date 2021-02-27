@@ -12,7 +12,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>Hello Vite + React!!!!</p>
-        <p>1 + 2 = {result}</p>
+        <p>1 + 1 + 2 = {result}</p>
         <p>
           <button onClick={() => setCount((count) => count + 1)}>
             count 2sss: {count}

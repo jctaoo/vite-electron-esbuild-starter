@@ -14,7 +14,6 @@ import {
   entryPath,
 } from "./common";
 import { startElectron } from "./run-electron";
-import { startViteServer } from "./run-vite";
 
 async function compile() {
   const tsconfigPath = path.join(mainPath, "tsconfig.json");
@@ -70,8 +69,6 @@ function handleSuccess() {
   startElectron(outDir);
 }
 
-async function start() {
+export async function watchMain() {
   await compile();
 }
-
-start();
