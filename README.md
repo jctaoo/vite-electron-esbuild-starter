@@ -9,7 +9,7 @@ React demo with antd is available here: [antd branch](https://github.com/jctaoo/
 ## 使用
 项目创建:
 - 直接 clone 该项目
-- 如果使用 GitHub，点击该页面上方的 Use this template 或[这里](https://github.com/jctaoo/electron-starter/generate)
+- 如果使用 GitHub，点击该页面上方的 Use this template 或[这里](https://github.com/jctaoo/electron-starter/generate) (不要勾选 include all branch)
 
 安装依赖
 ```shell
