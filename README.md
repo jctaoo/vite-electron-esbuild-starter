@@ -4,6 +4,8 @@ The electron example using vite for renderer process and esbuild for main proces
 
 React demo with antd is available here: [antd branch](https://github.com/jctaoo/electron-starter/tree/antd)
 
+注意: CSC_IDENTITY_AUTO_DISCOVERY 默认设置为 false 以避免在打包 macos 的 codesign 操作 (详见 [codesign](https://www.electron.build/code-signing))
+
 ## 使用
 项目创建:
 - 直接 clone 该项目
@@ -37,6 +39,7 @@ yarn run pack:mac
 yarn run pack:linux
 
 # 为所有平台打包
+yarn run pack # 排除 mac 平台，适用于 linux & win
 yarn run pack:all
 ```
 
