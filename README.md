@@ -1,3 +1,7 @@
-# electron starter
+# Antd Example
 
-The electron starter using vite for renderer process and esbuild for main process.
+Support automatic import atnd css.
+
+## rollup bundle analyzer screenshot:
+
+![rollup bundle analyzer screenshot](./analyzer.png)
