@@ -30,11 +30,11 @@ async function rmRecursively(path: string) {
       if (children.length === 0) {
         await fs.promises.rmdir(last);
       } else {
+        files.push(last);
         files = files.concat(children);
       }
     }
   }
-  await fs.promises.rmdir(path);
 }
 
 rmRecursively("./dist");
