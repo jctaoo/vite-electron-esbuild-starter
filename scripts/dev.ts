@@ -31,6 +31,7 @@ function buildStart() {
 }
 
 function buildComplete(dir: string) {
+  console.log(dir)
   console.log(finishMessage);
   startElectron(dir);
 }

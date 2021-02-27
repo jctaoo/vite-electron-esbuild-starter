@@ -1,5 +1,7 @@
 import { app, BrowserWindow } from "electron";
 import { add } from "@common/utils";
+import { join } from "path";
+import { pathToFileURL, format as formatUrl } from "url";
 
 const isDevelopment = process.env.NODE_ENV === "development";
 
@@ -12,15 +14,16 @@ function createWindow() {
       contextIsolation: true,
     },
     show: false,
-  }).once('ready-to-show', () => {
-    win.show()
-  })
-  console.log('yeah');
+  }).once("ready-to-show", () => {
+    win.show();
+  });
   if (isDevelopment) {
     win.loadURL("http://localhost:3000");
     win.webContents.toggleDevTools();
   } else {
-    win.loadFile("../index.html");
+    win.loadURL(
+      pathToFileURL(join(__dirname, "../renderer/index.html")).toString()
+    );
   }
 }
 

@@ -3,3 +3,8 @@ node_modules
 dist
 dist-ssr
 *.local
+pack
+app/*
+!app/package.json
+!app/yarn.lock
+!app/package-lock.json

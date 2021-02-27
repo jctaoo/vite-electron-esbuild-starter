@@ -1,0 +1,7 @@
+appId: com.jctaoo.electron_starter
+productName: electron starter
+copyright: Copyright © 2021 jctaoo
+directories:
+  output: dist
+  buildResources: build
+  app: app
