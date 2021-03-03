@@ -2,7 +2,7 @@
 
 ![⚡️](./demo.gif)
 
-[Chinese](./README_CN)
+[Chinese](./README_CN.md)
 
 The electron project stater using vite for renderer process and esbuild / tsc for main process.
 
