@@ -1,67 +1,71 @@
-# electron starter
+# ⚡️ vite electron starter
 
-The electron example using vite for renderer process and esbuild for main process.
+![⚡️](./demo.gif)
 
-React demo with antd is available here: [antd branch](https://github.com/jctaoo/electron-starter/tree/antd)
+[Chinese](./README_CN)
 
-注意: CSC_IDENTITY_AUTO_DISCOVERY 默认设置为 false 以避免在打包 macos 的 codesign 操作 (详见 [codesign](https://www.electron.build/code-signing))
+The electron project stater using vite for renderer process and esbuild / tsc for main process.
 
-## 使用
-项目创建:
-- 直接 clone 该项目
-- 如果使用 GitHub，点击该页面上方的 Use this template 或[这里](https://github.com/jctaoo/electron-starter/generate) (不要勾选 include all branch)
+React demo with antd is available here (Automatic style introduction has been configured. Vite supports on-demand loading by default): [antd branch](https://github.com/jctaoo/electron-starter/tree/antd)
 
-安装依赖
+Note: CSC_IDENTITY_AUTO_DISCOVERY is set to false by default to avoid the codesign operation in packaging macos (learn more: [codesign](https://www.electron.build/code-signing))
+
+## Usage
+Create a Project:
+- Clone this project directly.
+- If you use GitHub, click Use this template at the top of the page or [here](https://github.com/jctaoo/electron-starter/generate) (do not check include all branch)
+
+Installation dependencies
 ```shell
 yarn
 ```
 启动本地调试
 ```shell
-# 使用 esbuild 来编译主线程 Typescript，速度更佳
+# Use esbuild to compile the main process Typescript, which is faster
 yarn run dev
 
-# 使用 tsc 来编译主线程 Typescript
+# Use tsc to compile the main process Typescript
 yarn run dev:tsc
 ```
-也可以分开使用 `dev:main`, `dev:main:tsc`, `dev:renderer` 来分开调试主线程和渲染进程。
+You can also use `dev:main`, `dev:main:tsc`, and `dev:renderer` separately to debug the main process and the rendering process separately.
 
-编译/打包
+Compile/Pack
 ```shell
-# 仅构建主线程和渲染进程的目标代码和资源，不打包（exe, dmg 等）
+# Only build the target code and resources of the main process and the rendering process, without packaging (exe, dmg, etc.)
 yarn run build
 
-# 在 build 的基础上运行/预览运行效果 (production 模式)，用来本地验证
+# Preview your application in production mode without pack.
 yarn run preview
 
-# 构建并打包为可运行的程序或安装程序
+# Build and pack as a runnable program or installer
 yarn run pack:win
 yarn run pack:mac
 yarn run pack:linux
 
-# 为所有平台打包
-yarn run pack # 排除 mac 平台，适用于 linux & win
+# Pack for all platforms
+yarn run pack # Exclude mac platform, applicable to linux & win
 yarn run pack:all
 ```
 
-清理构建目录
+Clean up the build directory
 ```shell
 yarn run clean
 ```
-## 运行截图
+## Screenshot
 ![screenshot](./screenshot.png)
 
-## 文件结构
-采用 [two-package-structure](https://www.electron.build/tutorials/two-package-structure)
+## File structure
+Use [two-package-structure](https://www.electron.build/tutorials/two-package-structure)
 ```
-+ app                     electron-builder app 目录及其构建产物目录 (目标js代码，图片资源等等，而不是安装包或可运行文件)
-  - package.json          生产依赖，全部存为 dependencies (而不是 devDependencies)
-+ dist                    electron-builder 打包目录
-+ scripts                 支持开发/构建等的脚本
++ app                     electron-builder app directory and its build product directory (target js code, image resources, etc., instead of installation packages or executable files)
+  - package.json          Production dependencies, all stored as dependencies (not devDependencies)
++ dist                    electron-builder package directory
++ scripts                 Support scripts for development/build.
 + src      
-  + common                通用代码
-  + main                  主进程模块
-  + renderer              渲染进程模块
-- package.json            开发时依赖，全部存为 devDependencies (而不是 dependencies)
-- vite.config.ts vite     配置
-- electron-builder.yml    electron-builder 配置
+  + common                common code
+  + main                  for main process
+  + renderer              for renderer process
+- package.json            Dependencies during development, all stored as devDependencies (not dependencies)
+- vite.config.ts          vite configurations
+- electron-builder.yml    electron-builder configurations
 ```
