@@ -1,4 +1,4 @@
-# ⚡️ vite electron starter
+# ⚡️ vite electron esbuild starter
 
 ![⚡️](./demo.gif)
 
@@ -19,7 +19,7 @@ Installation dependencies
 ```shell
 yarn
 ```
-启动本地调试
+Starte local development
 ```shell
 # Use esbuild to compile the main process Typescript, which is faster
 yarn run dev
