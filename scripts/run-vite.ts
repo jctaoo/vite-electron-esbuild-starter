@@ -9,6 +9,7 @@ function LoggerPlugin(): Plugin {
     name: "electron-scripts-logger",
     handleHotUpdate: (ctx) => {
       for (const file of ctx.modules) {
+        if (!file.file) continue;
         const path = file.file.replace(srcPath, "");
         console.log(
           chalk.yellow(consoleViteMessagePrefix),
@@ -30,8 +31,8 @@ export async function startViteServer() {
     plugins: [...(cfg.plugins ?? []), LoggerPlugin()],
   });
   await server.listen();
-  const address = server.httpServer.address();
-  if (typeof address === "object") {
+  const address = server.httpServer!.address();
+  if (address && typeof address === "object") {
     const port = address.port;
     console.log(
       chalk.green(consoleViteMessagePrefix),

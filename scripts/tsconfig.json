@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "module": "CommonJS",
-    "target": "ES2017"
+    "target": "ES2017",
+    "strictNullChecks": true,
+    "strict": true
   },
   "include": ["./**/*"]
 }

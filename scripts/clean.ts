@@ -23,7 +23,7 @@ async function rmRecursively(path: string, excludes?: Array<string>) {
   });
   let files: Array<string> = [path];
   while (files.length > 0) {
-    const last = files.pop();
+    const last = files.pop()!;
     const stat = await fs.promises.lstat(last);
     if (last === path && !stat.isDirectory) {
       return;

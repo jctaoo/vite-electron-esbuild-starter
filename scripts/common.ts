@@ -37,7 +37,7 @@ export interface CompileError {
     length: number;
     line: number;
     lineText: string;
-  };
+  } | undefined | null;
   message: string;
 }
 
@@ -46,6 +46,8 @@ function repeatString(char: string, len: number): string {
 }
 
 function formatCompileError(error: CompileError): string {
+  if (!error.location) return error.message;
+
   const pathMessage =
     chalk.cyan(error.location.file) +
     ":" +
