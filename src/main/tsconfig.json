@@ -1,16 +1,15 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "target": "ES2018",
     "module": "CommonJS",
-    "sourceMap": false,
-    "outDir": "../../app",
-    "baseUrl": "../../src",
-    "paths": {
-      "@main/*": ["main/*"],
-      "@common/*": ["common/*"]
-    }
+    "outDir": "../../app"
   },
-  "include": ["../main/**/*", "../common/**/*"],
-  "exclude": ["../renderer/**/*"]
+  "include": [
+    "../main/**/*",
+    "../common/**/*"
+  ],
+  "exclude": [
+    "../renderer/**/*"
+  ]
 }
