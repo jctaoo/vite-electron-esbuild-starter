@@ -47,7 +47,7 @@ export async function startElectron(path: string) {
     await delay(500);
   }
 
-  electronProcess = childProcess.spawn(electron, [path]);
+  electronProcess = childProcess.spawn(electron, [path, "--color"]);
   electronProcess.on("exit", (code) => {
     if (!exitByScripts) {
       console.log(chalk.gray(`Electron exited with code ${code}`));
