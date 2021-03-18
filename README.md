@@ -1,8 +1,8 @@
-# ⚡️ vite electron starter
+# ⚡️ vite electron esbuild starter
 
 ![⚡️](./demo.gif)
 
-[Chinese](./README_CN)
+[Chinese](./README_CN.md)
 
 The electron project stater using vite for renderer process and esbuild / tsc for main process.
 
@@ -22,9 +22,7 @@ Installation dependencies
 ```shell
 yarn
 ```
-
-启动本地调试
-
+Start local development
 ```shell
 # Use esbuild to compile the main process Typescript, which is faster
 yarn run dev
@@ -73,7 +71,7 @@ Use [two-package-structure](https://www.electron.build/tutorials/two-package-str
   - package.json          Production dependencies, all stored as dependencies (not devDependencies)
 + dist                    electron-builder package directory
 + scripts                 Support scripts for development/build.
-+ src
++ src      
   + common                common code
   + main                  for main process
   + renderer              for renderer process
