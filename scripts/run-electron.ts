@@ -41,6 +41,7 @@ function delay(duration: number): Promise<void> {
 let exitByScripts = false;
 export async function startElectron(path: string) {
   if (!!electronProcess) {
+    electronProcess.removeAllListeners();
     process.kill(electronProcess.pid);
     exitByScripts = true;
     electronProcess = null;
