@@ -50,7 +50,7 @@ async function rmRecursively(path: string, excludes?: Array<string>) {
     }
   }
   if ((await fs.promises.readdir(path)).length === 0) {
-    await fs.promises.rmdir(path)
+    await fs.promises.rmdir(path);
   }
 }
 

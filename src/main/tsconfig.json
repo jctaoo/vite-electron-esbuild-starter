@@ -9,7 +9,7 @@
     "paths": {
       "@main/*": ["main/*"],
       "@common/*": ["common/*"]
-    },
+    }
   },
   "include": ["../main/**/*", "../common/**/*"],
   "exclude": ["../renderer/**/*"]

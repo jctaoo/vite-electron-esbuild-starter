@@ -52,7 +52,12 @@ async function main() {
       esDev.watchMain(reportError, buildStart, buildComplete, notFoundTSConfig);
       break;
     case "--tsc":
-      tscDev.watchMain(reportError, buildStart, buildComplete, notFoundTSConfig);
+      tscDev.watchMain(
+        reportError,
+        buildStart,
+        buildComplete,
+        notFoundTSConfig
+      );
       break;
   }
 }

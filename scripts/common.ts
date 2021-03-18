@@ -6,7 +6,7 @@ export type WatchMain = (
   reportError: (errs: CompileError[]) => void,
   buildStart: () => void,
   buildComplete: (dir: string) => void,
-  notFoundTSConfig: () => void,
+  notFoundTSConfig: () => void
 ) => void;
 
 export const srcPath = path.join(process.cwd(), "./src");
@@ -31,13 +31,16 @@ export const finishMessage = chalk.green(
 );
 
 export interface CompileError {
-  location: {
-    column: number;
-    file: string;
-    length: number;
-    line: number;
-    lineText: string;
-  } | undefined | null;
+  location:
+    | {
+        column: number;
+        file: string;
+        length: number;
+        line: number;
+        lineText: string;
+      }
+    | undefined
+    | null;
   message: string;
 }
 

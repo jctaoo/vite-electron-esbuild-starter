@@ -9,15 +9,20 @@ Electron 初始项目，使用 tsc 或 esbuild 构建主进程，使用 vite 构
 注意: CSC_IDENTITY_AUTO_DISCOVERY 默认设置为 false 以避免在打包 macos 的 codesign 操作 (详见 [codesign](https://www.electron.build/code-signing))
 
 ## 使用
+
 项目创建:
+
 - 直接 clone 该项目
 - 如果使用 GitHub，点击该页面上方的 Use this template 或[这里](https://github.com/jctaoo/electron-starter/generate) (不要勾选 include all branch)
 
 安装依赖
+
 ```shell
 yarn
 ```
+
 启动本地调试
+
 ```shell
 # 使用 esbuild 来编译主进程 Typescript，速度更佳
 yarn run dev
@@ -25,9 +30,11 @@ yarn run dev
 # 使用 tsc 来编译主进程 Typescript
 yarn run dev:tsc
 ```
+
 也可以分开使用 `dev:main`, `dev:main:tsc`, `dev:renderer` 来分开调试主进程和渲染进程。
 
 编译/打包
+
 ```shell
 # 仅构建主进程和渲染进程的目标代码和资源，不打包（exe, dmg 等）
 yarn run build
@@ -46,20 +53,25 @@ yarn run pack:all
 ```
 
 清理构建目录
+
 ```shell
 yarn run clean
 ```
+
 ## 运行截图
+
 ![screenshot](./screenshot.png)
 
 ## 文件结构
+
 采用 [two-package-structure](https://www.electron.build/tutorials/two-package-structure)
+
 ```
 + app                     electron-builder app 目录及其构建产物目录 (目标js代码，图片资源等等，而不是安装包或可运行文件)
   - package.json          生产依赖，全部存为 dependencies (而不是 devDependencies)
 + dist                    electron-builder 打包目录
 + scripts                 支持开发/构建等的脚本
-+ src      
++ src
   + common                通用代码
   + main                  主进程模块
   + renderer              渲染进程模块

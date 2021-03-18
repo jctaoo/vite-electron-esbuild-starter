@@ -62,6 +62,10 @@ export async function startElectron(path: string) {
   const removeElectronLoggerJunkErr = new stream.Transform(
     removeJunkTransformOptions
   );
-  electronProcess.stdout!.pipe(removeElectronLoggerJunkOut).pipe(process.stdout);
-  electronProcess.stderr!.pipe(removeElectronLoggerJunkErr).pipe(process.stderr);
+  electronProcess
+    .stdout!.pipe(removeElectronLoggerJunkOut)
+    .pipe(process.stdout);
+  electronProcess
+    .stderr!.pipe(removeElectronLoggerJunkErr)
+    .pipe(process.stderr);
 }

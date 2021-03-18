@@ -4,13 +4,7 @@
 import * as esbuild from "esbuild";
 import * as path from "path";
 import * as fs from "fs";
-import {
-  CompileError,
-  mainPath,
-  outDir,
-  entryPath,
-  WatchMain,
-} from "./common";
+import { CompileError, mainPath, outDir, entryPath, WatchMain } from "./common";
 
 function transformErrors(error: esbuild.BuildFailure): CompileError[] {
   const errors = error.errors.map(

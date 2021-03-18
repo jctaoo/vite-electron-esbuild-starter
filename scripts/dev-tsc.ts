@@ -1,12 +1,7 @@
 import * as ts from "typescript";
 import * as path from "path";
 import * as os from "os";
-import {
-  CompileError,
-  WatchMain,
-  outDirMain,
-  mainPath,
-} from "./common";
+import { CompileError, WatchMain, outDirMain, mainPath } from "./common";
 
 let diagnosticErrors: Array<CompileError> = [];
 

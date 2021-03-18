@@ -17,7 +17,8 @@
     "pack:mac": "yarn run build && yarn run rebuild && cross-env CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder -c ./electron-builder.yml --mac",
     "pack:linux": "yarn run build && yarn run rebuild && cross-env CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder -c ./electron-builder.yml --linux",
     "rebuild": "electron-rebuild -m ./app",
-    "postinstall": "electron-builder install-app-deps"
+    "postinstall": "electron-builder install-app-deps",
+    "prettier": "prettier -w ."
   },
   "devDependencies": {
     "@types/node": "^14.14.31",
@@ -30,6 +31,7 @@
     "electron-builder": "^22.9.1",
     "electron-rebuild": "^2.3.5",
     "esbuild": "^0.8.51",
+    "prettier": "^2.2.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "ts-node": "^9.1.1",
