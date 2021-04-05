@@ -1,7 +1,9 @@
 import { defineConfig } from "vite";
 import reactRefresh from "@vitejs/plugin-react-refresh";
 import { join, resolve } from "path";
-import { outDirRenderer, rendererPath } from "./scripts/common";
+
+const rendererPath = resolve(__dirname, "./src/renderer");
+const outDirRenderer = resolve(__dirname, "./app/renderer")
 
 // https://vitejs.dev/config/
 export default defineConfig({

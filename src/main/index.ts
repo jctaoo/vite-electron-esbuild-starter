@@ -22,7 +22,7 @@ function createWindow() {
     win.webContents.toggleDevTools();
   } else {
     win.loadURL(
-      pathToFileURL(join(__dirname, "../renderer/index.html")).toString()
+      pathToFileURL(join(__dirname, "./renderer/index.html")).toString()
     );
   }
 }
