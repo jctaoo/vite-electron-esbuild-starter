@@ -21,7 +21,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@vitejs/plugin-react-refresh": "^1.1.0",
-    "chalk": "^4.1.0",
+    "chalk": "^4.1.1",
     "cross-env": "^7.0.3",
     "electron": "^11.3.0",
     "electron-builder": "^22.9.1",
