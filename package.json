@@ -24,7 +24,7 @@
     "chalk": "^4.1.0",
     "cross-env": "^7.0.3",
     "electron": "^11.3.0",
-    "electron-builder": "^22.9.1",
+    "electron-builder": "^22.11.1",
     "electron-rebuild": "^2.3.5",
     "electron-run": "^2.0.0",
     "esbuild": "^0.8.51",
